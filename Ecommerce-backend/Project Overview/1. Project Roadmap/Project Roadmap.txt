@@ -1,0 +1,441 @@
+Phase 1 — Domain Modeling & System Design
+
+Before writing code:
+
+Functional Requirements
+Non-functional Requirements
+Capacity Estimation
+High-Level Design (HLD)
+Low-Level Design (LLD)
+UML Class Diagrams
+Sequence Diagrams
+ER Diagrams
+API Contracts
+OpenAPI Specification
+Architecture Decision Records (ADR)
+
+Deliverables
+
+Architecture diagrams
+UML diagrams
+API documentation
+Database schema
+Design documents
+
+*********************************************************************************
+
+Phase 2 — Core Business Microservices (H2)
+
+Focus only on business logic.
+Every service uses H2.
+
+-----------------
+Identity Service - Registration, Login, Profile, Roles, Password Encryption
+Patterns - Factory, Strategy, Singleton
+
+-----------------
+Catalog Service - Product CRUD, Categories, Brands, Images, Reviews, Search, Pagination, Sorting, Filtering
+Patterns - Builder, Specification, Mapper 
+
+-----------------
+Inventory Service - Stock, Reserve, Release, Validation
+
+-----------------
+Cart Service - Add Item, Remove Item, Update Quantity, Cart Total
+
+-----------------
+Order Service - Place Order, Cancel, History, Order Status
+Patterns - State
+
+-----------------
+Payment Service - Mock Payment, Refund, History
+Patterns - Strategy, Adapter
+
+-----------------
+Notification Service (NEW) - Email, SMS (Mock), Push Notifications (Mock)
+Patterns - Observer
+
+-----------------
+AI Service - Mock only
+Recommendation
+Chat Assistant
+Semantic Search
+Product Summary
+
+CRUD
+DTO
+Validation
+Logging
+Exception Handling
+OpenAPI
+Unit Tests
+Integration Tests
+Postman Collection
+
+*********************************************************************************
+
+Phase 3 — Production Databases
+
+Replace H2.
+
+Service	Database
+Identity	MySQL
+Catalog	        MongoDB
+Inventory	PostgreSQL
+Cart	        Redis
+Order	        PostgreSQL
+Payment	        PostgreSQL
+Notification	PostgreSQL
+AI	        PostgreSQL + Qdrant
+
+Docker
+Docker Compose
+Flyway
+Liquibase
+Database Migration
+Indexing
+Transactions
+Optimistic Locking
+Pessimistic Locking
+Query Optimization
+
+*********************************************************************************
+
+Phase 4 — Docker
+Every service becomes a container.
+
+Learn
+Multi-stage Docker Builds
+Docker Networks
+Docker Volumes
+Docker Health Checks
+Docker Secrets
+
+*********************************************************************************
+
+Phase 5 — Service Discovery
+Eureka
+
+Dynamic Registration
+Dynamic Discovery
+
+*********************************************************************************
+
+Phase 6 — API Gateway
+Spring Cloud Gateway
+
+Routing
+JWT Validation
+Authentication
+Authorization
+Request Validation
+Rate Limiting
+CORS
+Logging
+Correlation IDs
+API Versioning
+Response Caching
+
+Pattern - Gateway
+
+*********************************************************************************
+
+Phase 7 — Enterprise Security
+Spring Security
+JWT
+OAuth2
+BCrypt
+RBAC
+Refresh Tokens
+
+Security Components
+SecurityFilterChain
+JWT Filter
+UserDetails
+AuthenticationManager
+PasswordEncoder
+Exception Handlers
+
+Gateway
+JWT Validation
+Token Parsing
+User Context Propagation
+
+*********************************************************************************
+
+Phase 8 — Inter-Service Communication
+Synchronous
+Spring WebClient
+
+Retry
+Timeout
+Circuit Breaker
+Fallback
+Load Balancer
+
+Optional
+OpenFeign
+
+Compare
+WebClient vs OpenFeign
+
+Asynchronous
+Apache Kafka
+
+Topics
+order-created
+payment-success
+payment-failed
+inventory-updated
+product-created
+product-updated
+notification-created
+
+Learn
+Consumer Groups
+Retry Topics
+Dead Letter Queue
+Schema Evolution
+Event Versioning
+Idempotent Consumers
+
+Patterns - Observer
+
+*********************************************************************************
+
+Phase 9 — Distributed Transactions
+
+Implement
+Saga Pattern
+Choreography
+Orchestration
+Transaction Compensation
+Outbox Pattern
+Inbox Pattern
+Idempotency
+
+*********************************************************************************
+
+Phase 10 — AI Integration
+LangChain4j
+OpenAI / Gemini
+Qdrant
+
+Features
+Product Recommendation
+Semantic Search
+Chat Assistant
+Review Summary
+Personalized Search
+AI Shopping Copilot
+
+*********************************************************************************
+
+Phase 11 — Caching
+Redis
+
+Implement
+Product Cache
+Category Cache
+Search Cache
+User Cache
+Inventory Cache
+
+Patterns - Cache-Aside
+
+Write Through
+Write Behind
+TTL
+Cache Eviction
+
+*********************************************************************************
+
+Phase 12 — Resilience
+Resilience4j
+
+Implement
+Circuit Breaker
+Retry
+Rate Limiter
+Time Limiter
+Bulkhead
+Fallback
+
+*********************************************************************************
+
+Phase 13 — Configuration Management
+Spring Cloud Config
+
+Profiles
+Dev
+QA
+Staging
+Production
+
+Secrets
+Vault (Optional)
+
+*********************************************************************************
+
+Phase 14 — Observability
+Logging
+Logback
+Structured JSON Logs
+Correlation IDs
+
+Metrics
+Micrometer
+Prometheus
+
+Dashboards
+Grafana
+
+Tracing
+Zipkin
+
+Centralized Logging
+Elasticsearch
+Logstash
+Kibana
+Alerting
+Alertmanager
+
+*********************************************************************************
+
+Phase 15 — Kubernetes
+Deploy
+
+Every Service
+
+Databases
+
+Kafka
+
+Redis
+
+Qdrant
+
+Resources
+
+Deployment
+Service
+ConfigMap
+Secret
+Ingress
+HPA
+StatefulSet
+PersistentVolume
+PersistentVolumeClaim
+
+*********************************************************************************
+
+Phase 16 — Cloud Deployment (NEW)
+Deploy to AWS (recommended)
+
+Learn
+EC2
+ECS
+EKS
+RDS
+ElastiCache
+S3
+CloudWatch
+IAM
+Route 53
+Application Load Balancer
+Auto Scaling
+AWS Secrets Manager
+
+Infrastructure as Code
+
+Terraform
+
+*********************************************************************************
+
+Phase 17 — CI/CD
+GitHub Actions
+
+Pipeline : Build -> Unit Tests -> Integration Tests -> Contract Tests -> Static Analysis -> Security Scan -> Docker Build -> Push Images -> Deploy
+
+Optional
+Jenkins
+ArgoCD
+
+*********************************************************************************
+
+Phase 18 — Enterprise Security Upgrade
+Replace JWT authentication with:
+Keycloak
+OAuth2
+
+OpenID Connect
+Spring Authorization Server (optional comparison)
+
+Features
+SSO
+SLO
+Google Login
+GitHub Login
+Multi-Realm
+Service Accounts
+Fine-Grained Authorization
+
+*********************************************************************************
+
+Phase 19 — Performance Engineering (NEW)
+Benchmark
+JMeter
+k6
+Gatling
+
+Measure
+Throughput
+Latency
+P95
+P99
+Error Rate
+CPU
+Memory
+
+Optimize
+Database
+Cache
+JVM
+Thread Pools
+
+*********************************************************************************
+
+Phase 20 — Production Readiness (NEW)
+
+Implement
+Health Checks
+Readiness Probes
+Liveness Probes
+Graceful Shutdown
+API Versioning
+Feature Flags
+Blue-Green Deployment
+Canary Deployment
+Rollback Strategy
+Disaster Recovery
+Backup & Restore
+Multi-Environment Support
+Enterprise Design Patterns
+Pattern	Usage
+Factory	Identity
+Strategy	Authentication, Payment
+Singleton	JWT Utilities
+Builder	Catalog
+Specification	Product Search
+Repository	Persistence
+Mapper	DTO Conversion
+State	Order Lifecycle
+Adapter	Payment Integration
+Observer	Kafka Consumers
+Gateway	API Gateway
+Saga	Distributed Transactions
+Outbox	Reliable Event Publishing
+Cache-Aside	Redis Caching
+Circuit Breaker	Resilience4j
+Dependency Injection	Spring
+CQRS (Optional)	Read-heavy Catalog APIs
