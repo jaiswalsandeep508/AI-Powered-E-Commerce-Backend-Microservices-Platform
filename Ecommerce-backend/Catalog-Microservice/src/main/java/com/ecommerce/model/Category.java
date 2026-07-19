@@ -1,11 +1,5 @@
 package com.ecommerce.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import com.ecommerce.model.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,27 +8,34 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "categories")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Role {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
+    private Long categoryId;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false)
-    private RoleType roleType;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    @Column(length = 255)
     private String description;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    // Self Reference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_category_id")
+    private Category parentCategory;
+
+    private String imageUrl;
+
     @Builder.Default
-    private Set<User> users = new HashSet<>();
+    private Boolean active = true;
+
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,orphanRemoval = true)
+    private Set<Product> products = new HashSet<>();
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -52,5 +53,4 @@ public class Role {
     public void preUpdate() {
         updatedAt = LocalDateTime.now();
     }
-
 }

@@ -1,40 +1,33 @@
 package com.ecommerce.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import com.ecommerce.model.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "product_images")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Role {
+public class ProductImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
+    private Long productImageId;
 
-    @Enumerated(value = EnumType.STRING)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id",nullable = false)
+    private Product product;
+
     @Column(nullable = false)
-    private RoleType roleType;
+    private String imageUrl;
 
-    @Column(length = 255)
-    private String description;
+    private Integer displayOrder;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     @Builder.Default
-    private Set<User> users = new HashSet<>();
+    private Boolean primaryImage = false;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -43,14 +36,13 @@ public class Role {
     private LocalDateTime updatedAt;
 
     @PrePersist
-    public void prePersist() {
+    public void prePersist(){
         createdAt = LocalDateTime.now();
         updatedAt = createdAt;
     }
 
     @PreUpdate
-    public void preUpdate() {
+    public void preUpdate(){
         updatedAt = LocalDateTime.now();
     }
-
 }

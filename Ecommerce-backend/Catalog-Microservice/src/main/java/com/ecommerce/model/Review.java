@@ -1,40 +1,38 @@
 package com.ecommerce.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import com.ecommerce.model.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "reviews")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Role {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
+    private Long reviewId;
 
-    @Enumerated(value = EnumType.STRING)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id",nullable = false)
+    private Product product;
+
+    // Reference to Identity Service
     @Column(nullable = false)
-    private RoleType roleType;
+    private Long userId;
 
-    @Column(length = 255)
-    private String description;
+    @Column(nullable = false)
+    private Integer rating;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    @Builder.Default
-    private Set<User> users = new HashSet<>();
+    @Column(nullable = false)
+    private String title;
+
+    @Column(length = 2000)
+    private String comment;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -49,8 +47,7 @@ public class Role {
     }
 
     @PreUpdate
-    public void preUpdate() {
+    public void preUpdate(){
         updatedAt = LocalDateTime.now();
     }
-
 }

@@ -1,6 +1,6 @@
 package com.ecommerce.model;
 
-import com.ecommerce.model.ENUM.AddressType;
+import com.ecommerce.model.enums.AddressType;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;

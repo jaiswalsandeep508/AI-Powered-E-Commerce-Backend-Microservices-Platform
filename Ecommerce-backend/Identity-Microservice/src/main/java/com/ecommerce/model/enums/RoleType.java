@@ -1,4 +1,4 @@
-package com.ecommerce.model.ENUM;
+package com.ecommerce.model.enums;
 
 public enum RoleType {
 
