@@ -6,12 +6,14 @@ import com.ecommerce.dto.response.UserResponse;
 import com.ecommerce.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
@@ -21,6 +23,8 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody RegisterRequest request) {
+        log.info("Receive request for register user with email : {}",
+                request.getEmail());
         return new ResponseEntity<>(userService.registerUser(request), HttpStatus.CREATED);
     }
 

@@ -42,7 +42,7 @@ public class AddressServiceImpl implements AddressService {
         addressMapper.updateEntity(request, address);
         Address updateAddress = addressRepository.save(address);
         log.info("Update address successfully with addressId : {}",addressId);
-        return addressMapper.toResponse(addressRepository.save(address));
+        return addressMapper.toResponse(addressRepository.save(updateAddress));
     }
 
     @Override

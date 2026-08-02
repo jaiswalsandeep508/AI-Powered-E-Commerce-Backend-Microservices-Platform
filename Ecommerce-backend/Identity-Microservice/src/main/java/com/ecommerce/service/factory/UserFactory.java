@@ -39,4 +39,21 @@ public class UserFactory {
                     return new ResourceNotFoundException("User", "email", email);
                 });
     }
+
+    /*
+     * ==========================================================
+     * TODO: Phase 3 - OAuth2 / Social Login
+     * ==========================================================
+     *
+     * Methods:
+     * - createOAuthUser(...)
+     * - createGoogleUser(...)
+     * - createGithubUser(...)
+     *
+     * Responsibilities:
+     * - Create user from OAuth provider
+     * - Assign default CUSTOMER role
+     * - Mark account as verified
+     * - Store provider details
+     */
 }
