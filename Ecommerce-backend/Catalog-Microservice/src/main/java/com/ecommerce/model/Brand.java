@@ -32,6 +32,7 @@ public class Brand {
     private Boolean active = true;
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL,orphanRemoval = true)
+    @Builder.Default
     private Set<Product> products = new HashSet<>();
 
     @Column(nullable = false, updatable = false)
@@ -40,15 +41,20 @@ public class Brand {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(nullable = false, updatable = false)
+    private Long createdBy;
+
+    @Column(nullable = false)
+    private Long updatedBy;
+
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         createdAt = LocalDateTime.now();
         updatedAt = createdAt;
     }
 
     @PreUpdate
-    public void preUpdate(){
+    public void preUpdate() {
         updatedAt = LocalDateTime.now();
     }
 }
-

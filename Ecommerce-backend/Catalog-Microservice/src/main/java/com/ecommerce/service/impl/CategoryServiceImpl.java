@@ -38,19 +38,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
 
-// ************************ Update Category ************************
-
+    // ************************ Update Category ************************
     @Override
     public CategoryResponse updateCategory(Long categoryId,CategoryRequest request) {
 
-        Category category =
-                categoryFactory.getCategoryById(categoryId);
+        Category category = categoryFactory.getCategoryById(categoryId);
 
-        categoryFactory
-                .validateCategoryNameForUpdate(categoryId,request.getName());
+        categoryFactory.validateCategoryNameForUpdate(categoryId,request.getName());
 
         categoryMapper.updateFromRequest(request,category);
-
 
         /*
          * Update the parent category.
@@ -60,67 +56,49 @@ public class CategoryServiceImpl implements CategoryService {
          */
 
         if (request.getParentCategoryId() != null) {
-
-            Category parentCategory =
-                    categoryFactory.getCategoryById(request.getParentCategoryId());
-
+            Category parentCategory = categoryFactory.getCategoryById(request.getParentCategoryId());
             categoryFactory.validateParentCategory(category,parentCategory);
-
             category.setParentCategory(parentCategory);
-
         } else {
             category.setParentCategory(null);
         }
 
-
         category.setUpdatedBy(UserContext.getCurrentUserId());
-
-        Category savedCategory =
-                categoryRepository.save(category);
+        Category savedCategory = categoryRepository.save(category);
 
         return categoryMapper.toResponse(savedCategory);
     }
 
-
+    // ************************ Delete Category ************************
     @Override
     public void deleteCategory(Long categoryId) {
 
-        Category category =
-                categoryFactory.getCategoryById(categoryId);
+        Category category = categoryFactory.getCategoryById(categoryId);
 
-        boolean hasChildCategories =
-                categoryRepository
-                        .existsByParentCategoryCategoryId(categoryId);
+        boolean hasChildCategories = categoryRepository.existsByParentCategoryCategoryId(categoryId);
 
         if (hasChildCategories) {
-
-            throw new BadRequestException(
-                    "Cannot delete category because child categories are referring to this parent category."
-            );
+            throw new BadRequestException("Cannot delete category because child categories are referring to this parent category.");
         }
 
         categoryRepository.delete(category);
     }
 
     // ************************ Get Category By ID ************************
-
     @Override
     public CategoryResponse getCategoryById(Long categoryId) {
 
-        Category category =
-                categoryFactory.getCategoryById(categoryId);
+        Category category = categoryFactory.getCategoryById(categoryId);
 
         return categoryMapper.toResponse(category);
     }
 
 
-// ************************ Get All Categories ************************
-
+    // ************************ Get All Categories ************************
     @Override
     public List<CategoryResponse> getAllCategories() {
 
-        List<Category> categories =
-                categoryRepository.findAll();
+        List<Category> categories = categoryRepository.findAll();
 
         return categories.stream()
                 .map(categoryMapper::toResponse)
