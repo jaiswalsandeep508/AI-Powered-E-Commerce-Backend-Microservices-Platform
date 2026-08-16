@@ -37,6 +37,12 @@ public class Category {
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Product> products = new HashSet<>();
 
+    @Column(name = "created_by", nullable = false, updatable = false)
+    private Long createdBy;
+
+    @Column(name = "updated_by", nullable = false)
+    private Long updatedBy;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
