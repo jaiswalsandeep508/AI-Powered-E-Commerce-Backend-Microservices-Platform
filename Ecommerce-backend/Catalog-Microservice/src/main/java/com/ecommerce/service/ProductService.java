@@ -6,7 +6,9 @@ import com.ecommerce.dto.request.ProductRequest;
 import com.ecommerce.dto.response.ProductImageResponse;
 import com.ecommerce.dto.response.ProductResponse;
 import com.ecommerce.dto.response.PageResponse;
+import org.springframework.data.domain.Page;
 
+import java.util.List;
 
 public interface ProductService {
 
@@ -34,6 +36,10 @@ public interface ProductService {
                                                  Integer size,
                                                  String sortBy,
                                                  String sortDir);
+
+    List<ProductResponse> sortProducts(String sortBy);
+
+    Page<ProductResponse> getProducts(int page, int size);
 
     ProductImageResponse uploadProductImage(Long productId, ProductImageRequest request);
 

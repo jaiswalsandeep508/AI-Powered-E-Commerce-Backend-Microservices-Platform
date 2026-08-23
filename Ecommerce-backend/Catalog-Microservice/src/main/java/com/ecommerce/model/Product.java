@@ -16,6 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
@@ -32,22 +33,21 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @Column(nullable = false)
     @Builder.Default
+    @Column(nullable = false)
     private BigDecimal discount = BigDecimal.ZERO;
 
     @Column(nullable = false)
     private BigDecimal specialPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id",nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "brand_id",nullable = false)
+    @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
-    // Reference to Identity Service
     @Column(nullable = false)
     private Long sellerId;
 
@@ -60,10 +60,12 @@ public class Product {
     @Builder.Default
     private Boolean active = true;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private Set<ProductImage> images = new HashSet<>();
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private Set<Review> reviews = new HashSet<>();
 
     @Column(nullable = false, updatable = false)
@@ -71,6 +73,12 @@ public class Product {
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    @Column(nullable = false, updatable = false)
+    private Long createdBy;
+
+    @Column(nullable = false)
+    private Long updatedBy;
 
     @PrePersist
     public void prePersist() {

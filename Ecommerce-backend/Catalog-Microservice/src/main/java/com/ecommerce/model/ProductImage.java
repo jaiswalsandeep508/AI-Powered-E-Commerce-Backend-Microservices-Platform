@@ -13,12 +13,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class ProductImage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productImageId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id",nullable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     @Column(nullable = false)
@@ -35,14 +36,20 @@ public class ProductImage {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(nullable = false, updatable = false)
+    private Long createdBy;
+
+    @Column(nullable = false)
+    private Long updatedBy;
+
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         createdAt = LocalDateTime.now();
         updatedAt = createdAt;
     }
 
     @PreUpdate
-    public void preUpdate(){
+    public void preUpdate() {
         updatedAt = LocalDateTime.now();
     }
 }
