@@ -20,10 +20,11 @@ public class ProductImageFactory {
     private final ProductImageMapper productImageMapper;
 
     public ProductImage create(Long productId, ProductImageRequest request) {
+        log.info("Creating product image entity for product ID: {}", productId);
         Product product = productFactory.getProductById(productId);
         ProductImage productImage = productImageMapper.toEntity(request);
         productImage.setProduct(product);
-  
+        log.info("Product image entity created successfully for product ID: {}", productId);
         return productImage;
     }
 
