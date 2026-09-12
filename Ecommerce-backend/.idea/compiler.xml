@@ -2,26 +2,18 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile name="Annotation profile for Cart-Microservice" enabled="true">
+      <profile name="Annotation profile for Order-Microservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
-        </processorPath>
-        <module name="Cart-Microservice" />
-      </profile>
-      <profile name="Annotation profile for Inventory-Microservice" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
         </processorPath>
         <module name="Catalog-Microservice" />
-        <module name="Identity-Microservice" />
         <module name="Inventory-Microservice" />
+        <module name="Order-Microservice" />
+        <module name="Identity-Microservice" />
+        <module name="Cart-Microservice" />
       </profile>
     </annotationProcessing>
   </component>
@@ -31,6 +23,7 @@
       <module name="Catalog-Microservice" options="-parameters" />
       <module name="Identity-Microservice" options="-parameters" />
       <module name="Inventory-Microservice" options="-parameters" />
+      <module name="Order-Microservice" options="-parameters" />
     </option>
   </component>
 </project>
