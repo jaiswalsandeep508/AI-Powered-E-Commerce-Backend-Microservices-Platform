@@ -3,9 +3,9 @@ spring:
     name: Eureka-Microservice
 
 server:
-  port: 8761
+  port: ${SERVER_PORT:8761}
 
 eureka:
   client:
-    register_with_eureka: false
-    fetch registry: false
+    register-with-eureka: false
+    fetch-registry: false
